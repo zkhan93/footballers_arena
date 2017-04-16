@@ -1,0 +1,26 @@
+{
+  "name": "footballers_arena",
+  "homepage": "https://github.com/zkhan93/footballers_arena",
+  "authors": [
+    "Zeeshan Khan <zkhan19093@gmail.com>"
+  ],
+  "description": "",
+  "main": "index.html",
+  "keywords": [
+    "football",
+    "arena"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0"
+  }
+}

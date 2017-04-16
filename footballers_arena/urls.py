@@ -22,7 +22,8 @@ router = routers.DefaultRouter()
 router.register(r'footballers', views.UserViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^', include('home.urls')),
+    url(r'^api/', include(router.urls)),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', admin.site.urls),
 ]

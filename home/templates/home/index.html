@@ -1,0 +1,110 @@
+{%load staticfiles%}
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="{% static 'components/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'components/bootstrap/dist/css/bootstrap-theme.min.css' %}">
+    <style>
+        body {
+            padding-top: 50px;
+            padding-bottom: 20px;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <!--<script src="{% static 'components/modernizr/bin/modernizr' %}"></script>-->
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row" id="detail">
+            <button onclick="reset();">Back</button>
+            <div class="list"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <div id="result" class="list-group"></div>
+            </div>
+        </div>
+        <div class="row" id="navigation">
+            <div>
+                <div id="prev" class="btn btn-sm btn-default">Prev </div>
+                <div class="pull-right">
+                    <div id="next" class="btn btn-sm btn-default">Next </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <p>&copy; Footballers arena 2017</p>
+        </footer>
+    </div>
+    <script src="{% static 'components/jquery/dist/jquery.js'%}"></script>
+    <script src="{% static 'components/tether/dist/js/tether.min.js' %}"></script>
+    <script src="{% static 'components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script>
+        var nextPage = function getNextPage(url) {
+            $.get(url, function (data, status) {
+                $('#result').html('');
+                $.each(data.results, function (key, value) {
+                    $('#result').append('<div data-id=' + value.id + ' class="list-group-item btn">\
+                                        <span class="badge">' + value.rating + '</span>' + '<h4>' + value.name + '</h4>' + value.club + '</div>');
+                });
+                console.log('new next' + data.next);
+                console.log('new previous' + data.previous);
+                $('#next').attr('data-url', data.next)
+                $('#prev').attr('data-url', data.previous);
+            });
+        };
+        var detailView = function (url) {
+            $('#result').hide();
+            $('#navigation').hide();
+            $('#detail').show();
+            $('#detail').html('<button onclick="reset();">Back</button>\
+            <div class="list"></div>');
+            $.get(url, function (data, status) {
+                $.each(data, function (name, value) {
+                    $('#detail .list').append(name + ' -> ' + value+'<br/>');
+                });
+                $('#detail .list').append('<img src="/static/pics/'+data.name+'.png"/>');
+            });
+        };
+        var reset = function reset() {
+            $('#result').show();
+            $('#navigation').show();
+            $('#detail').hide();
+            nextPage('/api/footballers/?format=json&page=1');
+        };
+        $('#detail').hide();
+        reset();
+        $('#next').on('click', function (event) {
+            nextPage($(this).attr('data-url'));
+            console.log($(this).attr('data-url'));
+        });
+        $('#prev').on('click', function (event) {
+            nextPage($(this).attr('data-url'));
+            console.log($(this).attr('data-url'));
+        });
+        $(document).on('click', '.list-group-item', function (event) {
+            var url = "/api/footballers/" + $(this).attr('data-id') + "/?format=json";
+            detailView(url);
+        });
+    </script>
+</body>
+
+</html>
