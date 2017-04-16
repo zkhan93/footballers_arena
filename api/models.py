@@ -10,17 +10,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 
-class DjangoMigrations(models.Model):
-    app = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
-    applied = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'django_migrations'
-
-
-class Footballers(models.Model):
+class Footballer(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(db_column='name', max_length=25, blank=True, null=True)  # Field name made lowercase.
     nationality = models.CharField(db_column='nationality', max_length=19, blank=True, null=True)  # Field name made lowercase.

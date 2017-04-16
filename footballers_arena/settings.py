@@ -116,7 +116,8 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    'PAGE_SIZE': 10
 }
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
@@ -124,7 +125,7 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 # Simplified static file serving.

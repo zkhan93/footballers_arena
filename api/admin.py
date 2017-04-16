@@ -6,6 +6,6 @@ from .models import *
 
 
 # Register your models here.
-@admin.register(Footballers)
+@admin.register(Footballer)
 class FootballersAdmin(admin.ModelAdmin):
     list_display = ['name']
