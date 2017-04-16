@@ -34,7 +34,7 @@
         <!-- Example row of columns -->
         <div class="row" id="detail">
             <button onclick="reset();">Back</button>
-            <div class="list"></div>
+            <table class="table"></table>
         </div>
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
@@ -67,8 +67,20 @@
                 });
                 console.log('new next' + data.next);
                 console.log('new previous' + data.previous);
-                $('#next').attr('data-url', data.next)
+                if (data.next) {
+                    $('#next').show();
+                    $('#next').attr('data-url', data.next);
+                }
+                else {
+                    $('#next').hide();
+                }
+                if(data.previous){
                 $('#prev').attr('data-url', data.previous);
+                $('#prev').show();
+                    
+                }else{
+                    $('#prev').hide();
+                }
             });
         };
         var detailView = function (url) {
@@ -76,12 +88,12 @@
             $('#navigation').hide();
             $('#detail').show();
             $('#detail').html('<button onclick="reset();">Back</button>\
-            <div class="list"></div>');
+             <table class="table"></table>');
             $.get(url, function (data, status) {
                 $.each(data, function (name, value) {
-                    $('#detail .list').append(name + ' -> ' + value+'<br/>');
+                    $('#detail .table').append('<tr><td>'+name+'</td><td>'+value+'</td></tr>');
                 });
-                $('#detail .list').append('<img src="/static/pics/'+data.name+'.png"/>');
+                $('#detail .table').append('<tr><td>image</td><td><img src="/static/pics/' + data.name + '.png"/></td></tr>');
             });
         };
         var reset = function reset() {
