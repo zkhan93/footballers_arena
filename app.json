@@ -1,0 +1,13 @@
+{
+  "name": "Footballers arena",
+  "description": "footballers area checkout your favorite one",
+  "image": "heroku/python",
+  "repository": "https://github.com/zkhan93/footballers_arena.git",
+  "keywords": [
+    "python",
+    "django"
+  ],
+  "addons": [
+    "heroku-postgresql"
+  ]
+}
